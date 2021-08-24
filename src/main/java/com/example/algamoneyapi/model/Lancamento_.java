@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
 @StaticMetamodel(Lancamento.class)
-public class Lancamento_ {
+public abstract class Lancamento_ {
 
 
     public static volatile SingularAttribute<Lancamento, Long> codigo;

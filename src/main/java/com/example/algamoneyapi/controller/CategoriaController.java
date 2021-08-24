@@ -26,13 +26,13 @@ public class CategoriaController {
 
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA')")
+    //@PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA')and #oauth2.hasScope('read')")
     public List<Categoria> listar(){
 
         return categoriaRepository.findAll();
     }
     @GetMapping("/{codigo}")
-    @PreAuthorize("hasAuthority('ROLE_CADASTRAR_CATEGORIA')")
+    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA')and #oauth2.hasScope('read')")
     public ResponseEntity<Categoria> buscarId (@PathVariable Long codigo){
         Optional<Categoria> categoria = categoriaRepository.findById(codigo);
         if(categoria.isPresent()){
@@ -42,7 +42,7 @@ public class CategoriaController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA')")
+    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA')and #oauth2.hasScope('write')")
     public ResponseEntity<Categoria> salva(@RequestBody Categoria categoria,HttpServletResponse response){
         Categoria categoriaSalva = categoriaRepository.save(categoria);
         publisher.publishEvent(new RecursoCriadoEvent(this,response,categoriaSalva.getCodigo()));

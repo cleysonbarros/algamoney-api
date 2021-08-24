@@ -7,7 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -17,7 +17,7 @@ public class Lancamento{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long codigo;
+    private Long codigo;
 
     @NotNull
     private String descricao;
@@ -31,6 +31,7 @@ public class Lancamento{
     @NotNull
     private BigDecimal valor;
 
+    @NotNull
     private String observacao;
 
     @NotNull

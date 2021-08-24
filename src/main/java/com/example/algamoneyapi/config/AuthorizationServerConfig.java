@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -14,6 +13,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+
 
 @Configuration
 @EnableAuthorizationServer
@@ -32,9 +32,9 @@ public class AuthorizationServerConfig  extends AuthorizationServerConfigurerAda
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-                 .withClient("angular")
+                .withClient("angular")
                 .secret(passwordEncoder.encode("@ngul@r0"))
-                .scopes("read", "write")
+                .scopes("read","write")
                 .authorizedGrantTypes("password","refresh_token")
                 .accessTokenValiditySeconds(1800)
                 .accessTokenValiditySeconds(3600 *24);
@@ -52,7 +52,7 @@ public class AuthorizationServerConfig  extends AuthorizationServerConfigurerAda
     @Bean
     public JwtAccessTokenConverter accessTokenConverter(){
         JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
-        accessTokenConverter.setSigningKey("algaworks"); //senha que valida o token
+        accessTokenConverter.setSigningKey("algaworks");
         return accessTokenConverter;
 
     }
