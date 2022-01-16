@@ -1,5 +1,6 @@
 package com.example.algamoneyapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,6 +26,10 @@ public class Pessoa {
     @NotNull
     private Boolean ativo;
 
-
+    @JsonIgnore
+    @Transient
+    public boolean isInativo() {
+        return !this.ativo;
+    }
 
 }

@@ -76,6 +76,18 @@ public class LancamentoController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @PutMapping("/{codigo}")
+    @PreAuthorize("hasAuthority('ROLE_CADASTRAR_LANCAMENTO')")
+    public ResponseEntity<Lancamento> atualizar(@PathVariable Long codigo , @Valid @RequestBody Lancamento lancamento){
+        try{
+            Lancamento lancamentoSalvo = lancamentoService.atualizar(codigo, lancamento);
+            return ResponseEntity.ok(lancamentoSalvo);
+        }catch(IllegalArgumentException e){
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
     @ExceptionHandler({PessoaInexistenteOuInativaException.class})
     public ResponseEntity<Object> handlePessoaInexistenteOuInativaException(PessoaInexistenteOuInativaException ex){
         String mensagemUsuario =messageSource.getMessage("pessoa.inexistence-ou-inativa" ,null, LocaleContextHolder.getLocale());

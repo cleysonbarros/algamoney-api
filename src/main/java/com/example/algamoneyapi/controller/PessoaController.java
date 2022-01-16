@@ -6,6 +6,8 @@ import com.example.algamoneyapi.repository.PessoaRepository;
 import com.example.algamoneyapi.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,6 +29,12 @@ public class PessoaController {
 
     @Autowired
     private ApplicationEventPublisher publisher;
+
+    @GetMapping
+    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_PESSOA')")
+    public Page<Pessoa> pesquisar(@RequestParam(required = false , defaultValue = "%") String nome, Pageable pageable){
+        return pessoaRepository.findByNomeContaining(nome,pageable);
+    }
 
     @GetMapping("/{codigo}")
     @PreAuthorize("hasAuthority('ROLE_CADASTRAR_PESSOA')")
