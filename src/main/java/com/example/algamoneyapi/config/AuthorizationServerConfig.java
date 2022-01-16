@@ -54,6 +54,7 @@ public class AuthorizationServerConfig  extends AuthorizationServerConfigurerAda
                 .tokenStore(tokenStore())
                 .tokenEnhancer(tokenEnhancerChain)
                 .reuseRefreshTokens(false)
+                .userDetailsService(userDetailsService)
                 .authenticationManager(authenticationManager);
     }
     @Bean
