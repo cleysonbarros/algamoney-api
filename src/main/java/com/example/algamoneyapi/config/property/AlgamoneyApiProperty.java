@@ -3,8 +3,7 @@ package com.example.algamoneyapi.config.property;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-@ConfigurationProperties("algamoney")
-@Component
+@ConfigurationProperties("algamoneyApi")
 public class AlgamoneyApiProperty {
 
     private String originPermitida = "http://localhost:8000";
